@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
+    <ion-title>Modals</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [hidden]="isLoad" text-center>
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div [hidden]="!isLoad">
+    {{trailer.title}}
+    <video fullscreen="fullscreen" autoplay="true" controls>
+      <source [src]="trailer.videoURL" type="video/mp4">
+    </video>
+    <div *ngIf="qualitesLength >= 2">
+      <button *ngFor="let q of trailer.qualities" (click)="launchByQality(q.videoURL)" ion-button>{{q.quality}}</button>
+    </div>
+  </div>
+  <button ion-button color="danger" full (click)="dismiss()">Close Modal</button>
+
+</ion-content>

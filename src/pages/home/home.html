@@ -1,17 +1,52 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Top 20</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="cards-bg social-cards">
+  <div [hidden]="isLoad" text-center>
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div [hidden]="!isLoad">
+    <ion-card *ngFor="let m of movies">
+
+    <ion-item>
+      <h2>{{m.title}}</h2>
+      <p>{{m.year}}</p>
+    </ion-item>
+
+    <img src="{{m.urlPoster}}">
+
+    <ion-card-content>
+      <p><a *ngFor="let d of m.directors"
+            (click)="launch(d.id)"
+      >{{d.name}}</a></p>
+      <p><span *ngFor="let c of m.countries">{{c}}</span></p>
+      <div padding>
+        <button ion-button block color="danger" (click)="openTrailerModal(m.idIMDB)">
+          Watch trailer
+        </button>
+      </div>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+          <ion-icon name='thumbs-up'></ion-icon>
+          {{m.rating}}
+        </button>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          <ion-icon name="heart"></ion-icon>
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+    {{m.trailer}}
+
+  </ion-card>
+  </div>
+
 </ion-content>
