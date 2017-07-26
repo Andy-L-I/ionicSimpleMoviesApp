@@ -1,17 +1,56 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      Favorite
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+
+<ion-content class="cards-bg social-cards">
+  <div [hidden]="isLoad" text-center>
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div [hidden]="!isLoad">
+    <ion-card *ngFor="let m of ( movies| isFavoritePipe)">
+
+      <ion-item>
+        <h2>{{m.title}}</h2>
+        <p>{{m.year}}</p>
+      </ion-item>
+
+      <img src="{{m.urlPoster}}">
+
+      <ion-card-content>
+        <p><a *ngFor="let d of m.directors"
+              (click)="launch(d.id)"
+        >{{d.name}}</a></p>
+        <p><span *ngFor="let c of m.countries">{{c}}</span></p>
+        <div padding>
+          <button ion-button block color="danger" (click)="openTrailerModal(m.idIMDB)">
+            Watch trailer
+          </button>
+        </div>
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button color="primary" clear small icon-start>
+            <ion-icon name='thumbs-up'></ion-icon>
+            {{m.rating}}
+          </button>
+        </ion-col>
+        <ion-col align-self-center text-center>
+          <ion-note>
+            <ion-icon name="heart"
+                      [ngClass]="{ 'active': m.isFavorite }"
+                      (click)="toggleFavorite(m)"
+            ></ion-icon>
+          </ion-note>
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+  </div>
+
 </ion-content>

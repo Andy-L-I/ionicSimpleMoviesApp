@@ -15,6 +15,7 @@ import { MoviesProvider } from '../providers/movies.provider';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FavoritePipe } from "../pipes/favorite.pipe"
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ContactPage,
     HomePage,
     TabsPage,
-    ModalPage
+    ModalPage,
+    FavoritePipe
   ],
   imports: [
     BrowserModule,

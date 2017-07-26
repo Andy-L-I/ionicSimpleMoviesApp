@@ -11,6 +11,7 @@ export class Movie {
   countries: string[];
   urlPoster: string;
   year: string;
-  directors: Director[]
+  directors: Director[];
+  isFavorite: boolean;
 }
 

@@ -39,12 +39,13 @@
       </ion-col>
       <ion-col align-self-center text-center>
         <ion-note>
-          <ion-icon name="heart"></ion-icon>
+          <ion-icon name="heart"
+                    [ngClass]="{ 'active': m.isFavorite }"
+                    (click)="toggleFavorite(m)"
+          ></ion-icon>
         </ion-note>
       </ion-col>
     </ion-row>
-
-    {{m.trailer}}
 
   </ion-card>
   </div>

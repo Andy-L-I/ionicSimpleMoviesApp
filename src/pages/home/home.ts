@@ -10,7 +10,7 @@ import { ModalPage } from "../modal/modal-page";
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
 
   private movies: Movie[];
   private resUrl: string = 'http://www.imdb.com';
@@ -21,13 +21,17 @@ export class HomePage implements OnInit{
     private moviesProvider: MoviesProvider,
     private platform: Platform,
     private storage: Storage,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController
+  ) {
     this.platform = platform;
   }
 
   ngOnInit() {
     this.storage.get('top20').then((data) => {
-      if (data != null) { this.movies = JSON.parse(data); this.isLoad = true }
+      if (data != null) {
+        this.movies = JSON.parse(data);
+        this.isLoad = true
+      }
       else this.getBunch();
     })
   }
@@ -57,5 +61,9 @@ export class HomePage implements OnInit{
     videoModal.present();
   }
 
+  toggleFavorite(m: Movie) {
+    m.isFavorite = !m.isFavorite;
+    this.storage.set('top20',JSON.stringify(this.movies));
+  }
 
 }
