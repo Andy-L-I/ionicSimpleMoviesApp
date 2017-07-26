@@ -1,11 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      For the Period
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <div [hidden]="isLoad" text-center>
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
 
+  <ion-card [hidden]="!isLoad">
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

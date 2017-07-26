@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController , Platform} from 'ionic-angular';
 import { ModalController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { MoviesProvider } from '../../providers/movies.provider';
-import { Movie } from "../../models/movie.model"
-import { ModalPage } from "../modal/modal-page"
+import { Movie } from "../../models/movie.model";
+import { ModalPage } from "../modal/modal-page";
 
 @Component({
   selector: 'page-home',
@@ -19,12 +20,31 @@ export class HomePage implements OnInit{
     public navCtrl: NavController,
     private moviesProvider: MoviesProvider,
     private platform: Platform,
+    private storage: Storage,
     private modalCtrl: ModalController) {
     this.platform = platform;
   }
 
   ngOnInit() {
-    this.moviesProvider.getTopBunch(20).subscribe(data => { this.movies = data; this.isLoad = true });
+    this.storage.get('top20').then((data) => {
+      if (data != null) { this.movies = JSON.parse(data); this.isLoad = true }
+      else this.getBunch();
+    })
+  }
+
+  getBunch() {
+    this.moviesProvider.getTopBunch(20)
+      .subscribe(data =>
+        {
+          this.movies = data;
+          this.storage.set('top20',JSON.stringify(data));
+        },
+        () => {
+
+        },
+        () => {
+          this.isLoad = true;
+        });
   }
 
   launch(id) {
